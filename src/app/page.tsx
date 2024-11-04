@@ -27,38 +27,33 @@ export default function Home() {
     const { active, over } = e;
     if (!over) return;
     if (over.id === "button") {
-      const baseName = active.id.replace(/\d+$/, ''); // Eliminar números del final del nombre
+      const baseName = active.id as string;
+      const nameWithOutNumber = baseName.replace(/\d+$/, "");
+      const existingNumbers = people
+        .filter((name) => name.startsWith(nameWithOutNumber))
+        .map((name) => {
+          const match = name.match(/(\d+)$/);
+          return match ? parseInt(match[0], 10) : 0;
+        })
+        .filter((num) => num > 0);
 
-    // Buscar el número más alto existente para el nombre base
-    const existingNumbers = people
-      .filter((name) => name.startsWith(baseName))
-      .map((name) => {
-        const match = name.match(/(\d+)$/);
-        return match ? parseInt(match[0], 10) : 0;
-      })
-      .filter((num) => num > 0);
+      const nextNumber =
+        existingNumbers.length > 0 ? Math.max(...existingNumbers) + 1 : 1;
 
-    const nextNumber = existingNumbers.length > 0
-      ? Math.max(...existingNumbers) + 1
-      : 1;
+      const newName = `${nameWithOutNumber} ${nextNumber}`;
 
-    // Crear el nuevo nombre
-    const newName = `${baseName} ${nextNumber}`;
+      const currentIndex = people.findIndex((person) => person === active.id);
 
-    // Obtener el índice del nombre original
-    const currentIndex = people.findIndex((person) => person === active.id);
-
-    // Insertar el nuevo nombre en el índice siguiente
-    setPeople((prevPeople) => {
-      const newPeople = [...prevPeople];
-      newPeople.splice(currentIndex + 1, 0, newName);
-      return newPeople;
-    });
+      setPeople((prevPeople) => {
+        const newPeople = [...prevPeople];
+        newPeople.splice(currentIndex + 1, 0, newName);
+        return newPeople;
+      });
     } else {
       const oldIndex = people.findIndex((person) => person === active.id);
       const newIndex = people.findIndex((person) => person === over.id);
       const newOrder = arrayMove(people, oldIndex, newIndex);
-      setSuccesOnMove(active.id)
+      setSuccesOnMove(active.id);
       setPeople(newOrder);
     }
   };
