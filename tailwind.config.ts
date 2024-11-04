@@ -13,6 +13,15 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        flash: {
+          '0%, 100%': { backgroundColor: '#A1A1AA' }, 
+          '50%': { backgroundColor: '#D1D5DB' },
+        },
+      },
+      animation: {
+        flash: 'flash 0.7s ease-in-out 3',
+      },
     },
   },
   plugins: [],
