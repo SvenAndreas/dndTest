@@ -28,6 +28,7 @@ export default function Home() {
     if (!over) return;
     if (over.id === "button") {
       const baseName = active.id as string;
+      if(baseName === 'button' )return
       const nameWithOutNumber = baseName.replace(/\d+$/, "");
       const existingNumbers = people
         .filter((name) => name.startsWith(nameWithOutNumber))
@@ -68,9 +69,7 @@ export default function Home() {
             items={people}
             strategy={verticalListSortingStrategy}
           >
-            {/* <button ref={setNodeRef} {...listeners} {...attributes} className="rounded-full bg-white border-2 font-bold border-lime-400 w-3/6 p-2 duration-300 hover:bg-lime-400  text-black">
-              COPY
-              </button> */}
+            
             <div className="flex flex-col gap-6">
               <Button buttonId="button" />
 
