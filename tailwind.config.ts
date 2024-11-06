@@ -16,7 +16,7 @@ const config: Config = {
       keyframes: {
         flash: {
           '0%, 100%': { backgroundColor: '#A1A1AA' }, 
-          '50%': { backgroundColor: '#D1D5DB' },
+          '50%': { backgroundColor: '#e5e7eb' },
         },
       },
       animation: {
